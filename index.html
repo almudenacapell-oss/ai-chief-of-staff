@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Chief of Staff — Almudena Capell</title>
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --off-white: #f7f5f0;
+    --slate: #1e2530;
+    --slate-light: #2d3748;
+    --accent: #c8a96e;
+    --accent-light: #e8d5a3;
+    --accent-dim: rgba(200,169,110,0.15);
+    --text: #1a1a2e;
+    --text-light: #4a5568;
+    --text-muted: #718096;
+    --border: rgba(200,169,110,0.3);
+    --card-bg: rgba(255,255,255,0.7);
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    --shadow-lg: 0 12px 48px rgba(0,0,0,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--off-white);
+    color: var(--text);
+    scroll-behavior: smooth;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(10px);
+    padding: 0 48px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(200,169,110,0.2);
+  }
+  nav .logo {
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 500;
+  }
+  nav .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  nav .nav-links a {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    transition: color 0.2s;
+  }
+  nav .nav-links a:hover { color: var(--accent); }
+
+  /* ── SLIDES ── */
+  .slide {
+    min-height: 100vh;
+    padding: 100px 80px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* ── SLIDE 1 — HERO ── */
+  .slide-hero {
+    background: var(--slate);
+    color: white;
+    padding: 0;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 50%, rgba(200,169,110,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(200,169,110,0.05) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200,169,110,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,169,110,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    padding: 100px 100px;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(200,169,110,0.4);
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 40px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .hero-title {
+    font-size: clamp(42px, 6vw, 76px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: white;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-subtitle {
+    font-size: 18px;
+    color: rgba(255,255,255,0.55);
+    max-width: 520px;
+    line-height: 1.7;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 300;
+    margin-bottom: 56px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 48px;
+  }
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .hero-stat .num {
+    font-size: 32px;
+    color: var(--accent);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+  }
+  .hero-stat .label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  /* ── SLIDE HEADER ── */
+  .slide-num {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin-bottom: 12px;
+  }
+  .slide-title {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    color: var(--slate);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+  .slide-title em { font-style: italic; color: var(--accent); }
+  .slide-lead {
+    font-size: 17px;
+    color: var(--text-light);
+    max-width: 600px;
+    line-height: 1.7;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 300;
+    margin-bottom: 56px;
+    border-left: 3px solid var(--accent);
+    padding-left: 20px;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: var(--accent);
+    margin: 20px 0 40px;
+  }
+
+  /* ── SLIDE 2 — THE PROBLEM ── */
+  .slide-light { background: var(--off-white); }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 1000px;
+  }
+  .problem-card {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 4px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+  .problem-card .icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .problem-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--slate);
+    margin-bottom: 8px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .problem-card p {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.6;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .problem-card.highlight {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+    grid-column: 1 / -1;
+  }
+  .problem-card.highlight p {
+    font-size: 16px;
+    color: var(--slate);
+    font-style: italic;
+  }
+
+  /* ── SLIDE 3 — ARCHITECTURE ── */
+  .slide-dark { background: var(--slate); color: white; }
+  .slide-dark .slide-title { color: white; }
+  .slide-dark .slide-lead { color: rgba(255,255,255,0.5); border-left-color: var(--accent); }
+
+  .arch-diagram {
+    max-width: 1000px;
+    width: 100%;
+  }
+  .arch-layer {
+    margin-bottom: 16px;
+  }
+  .arch-layer-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin-bottom: 10px;
+    padding-left: 4px;
+  }
+  .arch-row {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+  }
+  .arch-box {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    padding: 16px 18px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .arch-box.accent {
+    background: var(--accent-dim);
+    border-color: rgba(200,169,110,0.4);
+  }
+  .arch-box .box-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 4px;
+  }
+  .arch-box .box-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.4;
+  }
+  .arch-box.accent .box-title { color: var(--accent); }
+  .arch-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(200,169,110,0.5);
+    font-size: 20px;
+    padding: 0 4px;
+    flex-shrink: 0;
+  }
+  .arch-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    position: relative;
+  }
+  .arch-connector::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: rgba(200,169,110,0.25);
+  }
+  .arch-connector-dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── SLIDE 4 — AGENTS ── */
+  .agents-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 1100px;
+  }
+  .agent-card {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 4px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .agent-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .agent-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+  .agent-card:hover::before { transform: scaleX(1); }
+  .agent-icon {
+    font-size: 24px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .agent-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--slate);
+    margin-bottom: 6px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .agent-trigger {
+    font-size: 11px;
+    color: var(--accent);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+  .agent-desc {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.6;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .agent-card.featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 24px;
+    align-items: start;
+    background: var(--slate);
+    color: white;
+    border-color: transparent;
+  }
+  .agent-card.featured .agent-icon { font-size: 32px; margin-top: 4px; }
+  .agent-card.featured .agent-name { color: var(--accent); font-size: 17px; }
+  .agent-card.featured .agent-trigger { color: rgba(255,255,255,0.4); }
+  .agent-card.featured .agent-desc { color: rgba(255,255,255,0.65); font-size: 14px; }
+
+  /* ── SLIDE 5 — AUTOMATIONS ── */
+  .auto-table {
+    width: 100%;
+    max-width: 960px;
+    border-collapse: collapse;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .auto-table th {
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 0 16px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .auto-table td {
+    padding: 16px;
+    font-size: 13px;
+    color: var(--text);
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    vertical-align: top;
+  }
+  .auto-table tr:last-child td { border-bottom: none; }
+  .auto-table tr:hover td { background: rgba(200,169,110,0.04); }
+  .auto-table .name { font-weight: 600; color: var(--slate); }
+  .auto-table .time { color: var(--accent); font-weight: 600; }
+  .auto-table .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 12px;
+  }
+  .status-on { background: rgba(72,187,120,0.12); color: #276749; }
+  .status-off { background: rgba(200,169,110,0.15); color: #92400e; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+  .dot-green { background: #48bb78; }
+  .dot-amber { background: var(--accent); }
+
+  /* ── SLIDE 6 — HOW A DAY WORKS ── */
+  .day-flow {
+    display: flex;
+    gap: 0;
+    max-width: 1000px;
+    align-items: flex-start;
+    position: relative;
+  }
+  .day-flow::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 28px;
+    right: 28px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), rgba(200,169,110,0.2));
+  }
+  .day-step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 12px;
+    position: relative;
+    z-index: 1;
+  }
+  .day-dot {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+    box-shadow: 0 0 0 6px var(--off-white);
+    flex-shrink: 0;
+  }
+  .day-time {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .day-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--slate);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin-bottom: 6px;
+  }
+  .day-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  /* ── SLIDE 7 — COMPOUNDING ── */
+  .compound-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    max-width: 1000px;
+    align-items: start;
+  }
+  .compound-col h3 {
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin-bottom: 24px;
+  }
+  .compound-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    align-items: flex-start;
+  }
+  .compound-icon {
+    width: 36px; height: 36px;
+    border-radius: 4px;
+    background: var(--accent-dim);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .compound-text h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--slate);
+    margin-bottom: 4px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .compound-text p {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.6;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  /* ── SLIDE 8 — THE NORTH STAR ── */
+  .slide-closing {
+    background: var(--slate);
+    color: white;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+  .closing-content { max-width: 700px; }
+  .closing-quote {
+    font-size: clamp(22px, 3.5vw, 36px);
+    font-weight: 400;
+    color: white;
+    line-height: 1.5;
+    margin-bottom: 32px;
+    font-style: italic;
+  }
+  .closing-quote em { color: var(--accent); font-style: normal; }
+  .closing-byline {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: 0.1em;
+    margin-bottom: 56px;
+  }
+  .closing-pillars {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .pillar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .pillar-icon { font-size: 24px; }
+  .pillar-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    max-width: 100px;
+  }
+
+  /* ── FOOTER ── */
+  .slide-footer {
+    position: absolute;
+    bottom: 32px;
+    left: 80px;
+    right: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: rgba(255,255,255,0.2);
+  }
+  .slide-footer.light { color: rgba(0,0,0,0.2); }
+
+  /* ── TAG ── */
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    padding: 3px 8px;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    color: var(--accent);
+    margin-right: 6px;
+    margin-bottom: 6px;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    nav .nav-links { display: none; }
+    .slide { padding: 80px 24px 60px; }
+    .hero-content { padding: 80px 24px; }
+    .problem-grid, .agents-grid, .compound-grid { grid-template-columns: 1fr; }
+    .agent-card.featured { grid-template-columns: 1fr; }
+    .day-flow { flex-direction: column; gap: 24px; }
+    .day-flow::before { display: none; }
+    .slide-footer { left: 24px; right: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="logo">AI Chief of Staff</span>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#agents">Agents</a></li>
+    <li><a href="#automations">Automations</a></li>
+    <li><a href="#day">A Day</a></li>
+    <li><a href="#north-star">North Star</a></li>
+  </ul>
+</nav>
+
+
+<!-- ── SLIDE 1 — HERO ── -->
+<section class="slide slide-hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Personal AI Operating System</div>
+    <h1 class="hero-title">The AI<br><em>Chief of Staff</em></h1>
+    <p class="hero-subtitle">A second brain that runs before you wake up, knows your full context, and gets smarter every week — built by and for a Director at AWS.</p>
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <span class="num">8</span>
+        <span class="label">Specialist Agents</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">8</span>
+        <span class="label">Live Automations</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">6:30</span>
+        <span class="label">AM Daily Briefing</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">0</span>
+        <span class="label">Manual Setup Each Day</span>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Almudena Capell · Director, AWS</span>
+    <span>2026</span>
+  </div>
+</section>
+
+
+<!-- ── SLIDE 2 — THE PROBLEM ── -->
+<section class="slide slide-light" id="problem">
+  <div class="slide-num">01 — The Problem</div>
+  <h2 class="slide-title">Senior leaders have <em>too much context</em><br>and too little time to use it</h2>
+  <div class="divider"></div>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <span class="icon">🔄</span>
+      <h3>Re-explaining context constantly</h3>
+      <p>Every new AI conversation starts from zero. You re-describe your role, your team, your priorities, your stakeholders — before getting to the actual work.</p>
+    </div>
+    <div class="problem-card">
+      <span class="icon">📋</span>
+      <h3>Manual prep that doesn't compound</h3>
+      <p>1:1 prep, hiring prep, stakeholder prep — done fresh each time. The patterns and history you've built up stay locked in your head or scattered across files.</p>
+    </div>
+    <div class="problem-card">
+      <span class="icon">⏱</span>
+      <h3>Coordination eats strategic time</h3>
+      <p>Status-checking, follow-up emails, aggregating information from multiple sources — all of it lands on the leader instead of the team.</p>
+    </div>
+    <div class="problem-card">
+      <span class="icon">🧠</span>
+      <h3>Knowledge doesn't accumulate</h3>
+      <p>Every correction, every insight, every pattern observed — gone when the session ends. The system resets. You never get compounding returns on what you know.</p>
+    </div>
+    <div class="problem-card highlight">
+      <span class="icon">→</span>
+      <p>"The highest-leverage thing a senior leader can do with AI is not use it for tasks — it's give it enough context to think alongside them."</p>
+    </div>
+  </div>
+  <div class="slide-footer light">
+    <span>The Problem</span>
+    <span>01</span>
+  </div>
+</section>
+
+
+<!-- ── SLIDE 3 — ARCHITECTURE ── -->
+<section class="slide slide-dark" id="architecture">
+  <div class="slide-num">02 — Architecture</div>
+  <h2 class="slide-title">Four layers.<br><em>One coherent system.</em></h2>
+  <p class="slide-lead">Each layer does a distinct job. Together they create a system that persists context, routes intelligently, compounds knowledge, and executes without being asked twice.</p>
+
+  <div class="arch-diagram">
+
+    <!-- Layer 1: Context -->
+    <div class="arch-layer">
+      <div class="arch-layer-label">Layer 1 — Always-loaded context (every session)</div>
+      <div class="arch-row">
+        <div class="arch-box accent">
+          <div class="box-title">Chief of Staff</div>
+          <div class="box-sub">Identity, routing logic, strategic lens</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">Quick Context</div>
+          <div class="box-sub">Role, team, key people, active projects</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">Honesty Rules</div>
+          <div class="box-sub">Override everything · No invention</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">Vault Structure</div>
+          <div class="box-sub">Canonical file paths · Never ask where to save</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">Wikilink Map</div>
+          <div class="box-sub">People, projects, strategy — auto-linked</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-connector"><div class="arch-connector-dot"></div></div>
+
+    <!-- Layer 2: Skills -->
+    <div class="arch-layer">
+      <div class="arch-layer-label">Layer 2 — Skills (self-trigger on matching intent)</div>
+      <div class="arch-row">
+        <div class="arch-box">
+          <div class="box-title">☀️ Morning Briefing</div>
+          <div class="box-sub">"good morning" → full daily brief</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">🌙 End of Day</div>
+          <div class="box-sub">"wrap it up" → coaching debrief</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">🎯 Hiring Agent</div>
+          <div class="box-sub">Phone screen → loop → debrief</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">👥 Team Agent</div>
+          <div class="box-sub">1:1 prep · coaching · team health</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">🤝 Stakeholder Agent</div>
+          <div class="box-sub">Pablo · Ruba · prep &amp; tracking</div>
+        </div>
+        <div class="arch-arrow">+</div>
+        <div class="arch-box">
+          <div class="box-title">📊 Talent Review</div>
+          <div class="box-sub">Forte · calibration · promotions · OLR</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">🔬 Researcher</div>
+          <div class="box-sub">Daily ingest · wiki synthesis · digest</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">⚙️ Automation Audit</div>
+          <div class="box-sub">Weekly · OO vs TT · time-to-AI</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-connector"><div class="arch-connector-dot"></div></div>
+
+    <!-- Layer 3: Memory -->
+    <div class="arch-layer">
+      <div class="arch-layer-label">Layer 3 — Persistent memory (improves after every session)</div>
+      <div class="arch-row">
+        <div class="arch-box">
+          <div class="box-title">Obsidian Vault</div>
+          <div class="box-sub">All files, wikilinks, backlinks — 5,000+ notes</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">Today-Context.md</div>
+          <div class="box-sub">Shared state across the full day's session</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">Skill Learnings</div>
+          <div class="box-sub">Per-agent correction log · compounds weekly</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">Research Wiki</div>
+          <div class="box-sub">6 domains · concepts · case studies · tools</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">Decision Log</div>
+          <div class="box-sub">Every significant decision, dated and reasoned</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-connector"><div class="arch-connector-dot"></div></div>
+
+    <!-- Layer 4: Automations -->
+    <div class="arch-layer">
+      <div class="arch-layer-label">Layer 4 — Background automations (run without intervention)</div>
+      <div class="arch-row">
+        <div class="arch-box">
+          <div class="box-title">🌅 6:30am Briefing</div>
+          <div class="box-sub">Mon–Fri · launchd · ready in Obsidian</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">📰 8:00am Research</div>
+          <div class="box-sub">Daily · 6 topics · RSS + search · auto-ingested</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">📎 Watch-Raw</div>
+          <div class="box-sub">Every 5 min · new files queued for wiki ingest</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">🔗 Asana Sync</div>
+          <div class="box-sub">Daily · action items → phone · completions → vault</div>
+        </div>
+        <div class="arch-box">
+          <div class="box-title">🎙 Voice Memos</div>
+          <div class="box-sub">Every 2h · Whisper transcription → meeting notes</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slide-footer">
+    <span>Architecture</span>
+    <span>02</span>
+  </div>
+</section>
+
+
+<!-- ── SLIDE 4 — AGENTS ── -->
+<section class="slide slide-light" id="agents">
+  <div class="slide-num">03 — The Agents</div>
+  <h2 class="slide-title">Eight specialists.<br><em>One orchestrator.</em></h2>
+  <div class="divider"></div>
+
+  <div class="agents-grid">
+
+    <div class="agent-card featured">
+      <span class="agent-icon">🎯</span>
+      <div>
+        <div class="agent-name">Chief of Staff — The Orchestrator</div>
+        <div class="agent-trigger">Always active · Routes every request · Holds the strategic lens</div>
+        <p class="agent-desc">The only agent you talk to directly. Interprets intent, routes to the right specialist, synthesizes results, and surfaces what matters — without being asked twice. Filters every task through one question: does this compound? Every request gets evaluated against the long-term agenda (NarrowIt, CHRO credibility, AI expertise) before execution.</p>
+      </div>
+    </div>
+
+    <div class="agent-card">
+      <span class="agent-icon">☀️</span>
+      <div class="agent-name">Morning Briefing</div>
+      <div class="agent-trigger">"good morning"</div>
+      <p class="agent-desc">Runs the full daily workflow: overnight Slack check, full calendar week view, all unread email with triage and urgency flags, weekly priorities cross-reference, decision layer, Asana sync, and session context write. Ready in Obsidian before you open your laptop.</p>
+    </div>
+
+    <div class="agent-card">
+      <span class="agent-icon">🌙</span>
+      <div class="agent-name">End of Day</div>
+      <div class="agent-trigger">"wrap it up"</div>
+      <p class="agent-desc">Executive coach debrief based on today's actual meeting notes. Assesses Outcome Owner vs. Task Taker behavior, strategic vs. reactive patterns, influence and positioning. Saves coaching file, updates leadership learnings log, writes skill learnings. Full automation audit on Fridays.</p>
+    </div>
+
+    <div class="agent-card">
+      <span class="agent-icon">🎯</span>
+      <div class="agent-name">Hiring Agent</div>
+      <div class="agent-trigger">"prep for [candidate]" · "debrief for [name]"</div>
+      <p class="agent-desc">Full hiring lifecycle from phone screen to debrief. Pulls LP assignments from the Amazon Hire invite email — never assumes. Generates interview prep with LP questions from the question bank, resume vs. JD gap analysis, level calibration, and red flags. Auto-triggers debrief prep when a debrief appears on the calendar.</p>
+    </div>
+
+    <div class="agent-card">
+      <span class="agent-icon">👥</span>
+      <div class="agent-name">Team Agent</div>
+      <div class="agent-trigger">"prep for 1:1 with [name]" · "team health check"</div>
+      <p class="agent-desc">Reads Hub.md and Profile.md before generating anything. Surfaces open action items, active coaching threads, engagement signals, and the L7 promotion ceiling for anyone who needs it. Flags stalled coaching threads, avoided topics, and AI readiness gaps across the team.</p>
+    </div>
+
+    <div class="agent-card">
+      <span class="agent-icon">🤝</span>
+      <div class="agent-name">Stakeholder Agent</div>
+      <div class="agent-trigger">"prep for Ruba" · "prep for Pablo"</div>
+      <p class="agent-desc">Reads persona files built from real Slack, email, and 1:1 data. Can simulate Pablo's or Ruba's responses for rehearsal. Tracks commitments on both sides, surfaces overdue items proactively, and flags compounding opportunities — things that serve both the Amazon deliverable and the longer-term agenda.</p>
+    </div>
+
+    <div class="agent-card">
+      <span class="agent-icon">📊</span>
+      <div class="agent-name">Talent Review Agent</div>
+      <div class="agent-trigger">"forte for [name]" · "calibration prep" · "OLR prep"</div>
+      <p class="agent-desc">Amazon talent process cold: OV framework (Performance × Potential), calibration inspection points, L7/L8 promotion mechanics, succession 3-2-1 standard. Bias interruption on every narrative — flags coded language, similarity bias, recency bias. Full OLR prep across all three days.</p>
+    </div>
+
+    <div class="agent-card">
+      <span class="agent-icon">🔬</span>
+      <div class="agent-name">Researcher Agent</div>
+      <div class="agent-trigger">"research [topic]" · "research digest"</div>
+      <p class="agent-desc">Builds and maintains a personal knowledge wiki across 6 domains: HR Agentification, Builder Transformation, AI Adoption, Talent Strategy, Org Design, Enterprise AI. Daily automated ingest from 25+ RSS sources and search. Synthesizes across sources, surfaces contradictions, connects findings to active work.</p>
+    </div>
+
+    <div class="agent-card">
+      <span class="agent-icon">⚙️</span>
+      <div class="agent-name">Automation Audit</div>
+      <div class="agent-trigger">Monday AM · Friday EOD · "run automation audit"</div>
+      <p class="agent-desc">Weekly review of what was manual, repetitive, or delegatable. Tracks cumulative time reclaimed. Outcome Owner vs. Task Taker week-in-review on Fridays — labels each significant action, surfaces the ratio, names one moment to repeat and one pattern to break.</p>
+    </div>
+
+  </div>
+  <div class="slide-footer light">
+    <span>The Agents</span>
+    <span>03</span>
+  </div>
+</section>
+
+
+<!-- ── SLIDE 5 — AUTOMATIONS ── -->
+<section class="slide slide-light" id="automations">
+  <div class="slide-num">04 — Background Automations</div>
+  <h2 class="slide-title">Eight automations running<br><em>without being asked.</em></h2>
+  <div class="divider"></div>
+
+  <table class="auto-table">
+    <thead>
+      <tr>
+        <th>Automation</th>
+        <th>Schedule</th>
+        <th>What it does</th>
+        <th>Output</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="name">☀️ Morning Briefing</span></td>
+        <td><span class="time">6:30am M–F</span></td>
+        <td>Runs full briefing workflow via Claude — Slack, calendar, email, Asana sync</td>
+        <td>Briefing file in Obsidian, tasks in Asana</td>
+        <td><span class="status status-on"><span class="dot dot-green"></span>Live</span></td>
+      </tr>
+      <tr>
+        <td><span class="name">📰 Daily Research</span></td>
+        <td><span class="time">8:00am daily</span></td>
+        <td>Fetches 10–15 articles from 25+ sources across 6 research topics</td>
+        <td>Markdown files in Research/raw, queued for wiki ingest</td>
+        <td><span class="status status-on"><span class="dot dot-green"></span>Live</span></td>
+      </tr>
+      <tr>
+        <td><span class="name">👁 Watch Raw</span></td>
+        <td><span class="time">Every 5 min</span></td>
+        <td>Detects new files in Research/raw, adds them to ingest queue</td>
+        <td>.pending-ingests.txt — picked up by Researcher at session start</td>
+        <td><span class="status status-on"><span class="dot dot-green"></span>Live</span></td>
+      </tr>
+      <tr>
+        <td><span class="name">🔗 Asana Priority Sync</span></td>
+        <td><span class="time">6:30am M–F</span></td>
+        <td>Reads Weekly-Focus.md, syncs unchecked items to Asana by section</td>
+        <td>Today / This Week / Waiting sections in Asana</td>
+        <td><span class="status status-on"><span class="dot dot-green"></span>Live</span></td>
+      </tr>
+      <tr>
+        <td><span class="name">🎙 Voice Memo Pipeline</span></td>
+        <td><span class="time">Every 2h</span></td>
+        <td>Transcribes new Voice Memos via Whisper, matches to calendar, routes to vault</td>
+        <td>Meeting notes in correct vault folder</td>
+        <td><span class="status status-on"><span class="dot dot-green"></span>Live</span></td>
+      </tr>
+      <tr>
+        <td><span class="name">📄 Doc to KB</span></td>
+        <td><span class="time">8:00am daily</span></td>
+        <td>Converts new PDFs and Word docs in Downloads to markdown in Knowledge Base</td>
+        <td>Searchable markdown in Knowledge Base/Documents</td>
+        <td><span class="status status-on"><span class="dot dot-green"></span>Live</span></td>
+      </tr>
+      <tr>
+        <td><span class="name">📅 Weekly Calendar Audit</span></td>
+        <td><span class="time">Monday 8:45am</span></td>
+        <td>Audits prior week's calendar against stated priorities</td>
+        <td>Weekly Rollups folder</td>
+        <td><span class="status status-on"><span class="dot dot-green"></span>Live</span></td>
+      </tr>
+      <tr>
+        <td><span class="name">🗂 Monday KB Refresh</span></td>
+        <td><span class="time">Monday 8:30am</span></td>
+        <td>Refreshes knowledge base with any documents synced over the weekend</td>
+        <td>Knowledge Base / Learning & Growing</td>
+        <td><span class="status status-on"><span class="dot dot-green"></span>Live</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="slide-footer light">
+    <span>Automations</span>
+    <span>04</span>
+  </div>
+</section>
+
+
+<!-- ── SLIDE 6 — A DAY IN THE LIFE ── -->
+<section class="slide slide-light" id="day">
+  <div class="slide-num">05 — A Day in the Life</div>
+  <h2 class="slide-title">What the system does<br><em>before you open your laptop.</em></h2>
+  <div class="divider"></div>
+
+  <div class="day-flow">
+    <div class="day-step">
+      <div class="day-dot">🌙</div>
+      <div class="day-time">Overnight</div>
+      <div class="day-label">Research Ingested</div>
+      <div class="day-desc">Articles fetched, filed, and queued for wiki synthesis</div>
+    </div>
+    <div class="day-step">
+      <div class="day-dot">⏰</div>
+      <div class="day-time">6:30 AM</div>
+      <div class="day-label">Briefing Runs</div>
+      <div class="day-desc">Slack · Calendar · All email · Decisions · Asana sync · Context file written</div>
+    </div>
+    <div class="day-step">
+      <div class="day-dot">☀️</div>
+      <div class="day-time">Morning</div>
+      <div class="day-label">You Open Obsidian</div>
+      <div class="day-desc">Briefing ready · Priorities clear · Action items in Asana on your phone</div>
+    </div>
+    <div class="day-step">
+      <div class="day-dot">💬</div>
+      <div class="day-time">During Day</div>
+      <div class="day-label">Agents On Call</div>
+      <div class="day-desc">Any request — hiring prep, 1:1 prep, stakeholder prep — triggers the right specialist with full vault context</div>
+    </div>
+    <div class="day-step">
+      <div class="day-dot">🌆</div>
+      <div class="day-time">End of Day</div>
+      <div class="day-label">Coaching Debrief</div>
+      <div class="day-desc">"Wrap it up" → coach reviews the day, logs learnings, updates the system</div>
+    </div>
+    <div class="day-step">
+      <div class="day-dot">📈</div>
+      <div class="day-time">Next Week</div>
+      <div class="day-label">System Smarter</div>
+      <div class="day-desc">Every correction, every pattern, every new context — absorbed and applied going forward</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 56px; max-width: 800px;">
+    <div class="slide-lead" style="margin-bottom: 0;">
+      On Mondays: sync script runs first → briefing → automation audit, all in sequence, all without being asked.
+      On Fridays: end-of-day adds the weekly OO/TT review and automation backlog update.
+    </div>
+  </div>
+
+  <div class="slide-footer light">
+    <span>A Day in the Life</span>
+    <span>05</span>
+  </div>
+</section>
+
+
+<!-- ── SLIDE 7 — WHY IT COMPOUNDS ── -->
+<section class="slide slide-light" id="compound">
+  <div class="slide-num">06 — Why It Compounds</div>
+  <h2 class="slide-title">Most AI tools reset.<br><em>This one accumulates.</em></h2>
+  <div class="divider"></div>
+
+  <div class="compound-grid">
+    <div class="compound-col">
+      <h3>What makes it compound</h3>
+      <div class="compound-item">
+        <div class="compound-icon">📝</div>
+        <div class="compound-text">
+          <h4>Skill learnings files</h4>
+          <p>Every agent keeps a learnings.md. When something goes wrong, the correction is written before the output is fixed. Monday audit promotes recurring learnings into the main steering files.</p>
+        </div>
+      </div>
+      <div class="compound-item">
+        <div class="compound-icon">🧠</div>
+        <div class="compound-text">
+          <h4>Session context monothread</h4>
+          <p>The morning briefing writes Today-Context.md. Every subsequent task in the session reads it first. The hiring agent already knows a loop is happening. The stakeholder agent knows what was decided this morning.</p>
+        </div>
+      </div>
+      <div class="compound-item">
+        <div class="compound-icon">📚</div>
+        <div class="compound-text">
+          <h4>Research wiki builds over time</h4>
+          <p>Daily ingest feeds a structured knowledge base. The wiki tracks contradictions between sources, gaps in coverage, and connections to active work — not just article storage.</p>
+        </div>
+      </div>
+      <div class="compound-item">
+        <div class="compound-icon">🎯</div>
+        <div class="compound-text">
+          <h4>Coaching debrief creates accountability</h4>
+          <p>Every end-of-day debrief reads from actual meeting notes — not impressions. Patterns are named. The weekly synthesis tracks whether behavior is shifting over time.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="compound-col">
+      <h3>What it replaces</h3>
+      <div class="compound-item">
+        <div class="compound-icon">❌</div>
+        <div class="compound-text">
+          <h4>Re-explaining context every session</h4>
+          <p>Tier 1 steering files load automatically at session start via a SessionStart hook. The system already knows who you are, who your team is, and what matters this week.</p>
+        </div>
+      </div>
+      <div class="compound-item">
+        <div class="compound-icon">❌</div>
+        <div class="compound-text">
+          <h4>Manual morning prep</h4>
+          <p>The 6:30am LaunchAgent runs the full briefing workflow. By the time you open your laptop, decisions are surfaced, email is triaged, and action items are in Asana.</p>
+        </div>
+      </div>
+      <div class="compound-item">
+        <div class="compound-icon">❌</div>
+        <div class="compound-text">
+          <h4>Hiring prep from scratch</h4>
+          <p>The hiring agent reads the candidate's full vault history, pulls LP questions from the question bank, cross-references the resume against the JD, and surfaces level calibration — in seconds.</p>
+        </div>
+      </div>
+      <div class="compound-item">
+        <div class="compound-icon">❌</div>
+        <div class="compound-text">
+          <h4>Research that doesn't connect to work</h4>
+          <p>Every article is synthesized against active priorities — CHRO Summit, NarrowIt, TechBD, HR Agentification. The digest tells you what this week's research means for your actual work, not just what it says.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer light">
+    <span>Why It Compounds</span>
+    <span>06</span>
+  </div>
+</section>
+
+
+<!-- ── SLIDE 8 — NORTH STAR ── -->
+<section class="slide slide-closing" id="north-star">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="closing-content" style="position: relative; z-index: 2;">
+    <div class="hero-tag" style="margin: 0 auto 40px;">The North Star</div>
+    <p class="closing-quote">
+      "The goal is not to automate tasks.<br>
+      The goal is to <em>free the leader</em><br>
+      to do only the work that compounds."
+    </p>
+    <p class="closing-byline">— The design principle behind every automation, every agent, every skill</p>
+
+    <div class="closing-pillars">
+      <div class="pillar">
+        <span class="pillar-icon">🏗</span>
+        <span class="pillar-label">Agentic HR Transformation</span>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">🌐</span>
+        <span class="pillar-label">CHRO External Credibility</span>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">🔬</span>
+        <span class="pillar-label">Compounding Expertise</span>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">🚀</span>
+        <span class="pillar-label">NarrowIt</span>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Almudena Capell · almudena@narrowit.com</span>
+    <span>2026</span>
+  </div>
+</section>
+
+</body>
+</html>
